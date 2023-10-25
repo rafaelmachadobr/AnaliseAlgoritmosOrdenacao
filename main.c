@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-// Função para mostrar as estatisticas
+// Função para mostrar as estatísticas
 void mostrarEstatisticas(int comparacoes, int trocas, float tempoExecucao) {
     printf("\nNúmero de comparações: %i", comparacoes);
     printf("\nNúmero de trocas de posição: %i", trocas);
@@ -22,16 +22,7 @@ void imprimirArray(int lista[], int tamanho) {
     printf("]\n");
 }
 
-// Função para printar o array
-void printArray(int lista[], int tamanho) {
-    printf("[");
-    for (int i = 0; i < tamanho; i++) {
-        printf("%d, ", lista[i]);
-    }
-    printf("]\n");
-}
-
-// Função Bubble Sort
+// Função para ordenar o array usando o algoritmo Bubble Sort
 void bubbleSort(int vetor[], int tamanho, int *trocas, int *comparacoes) {
     int aux, i, j;
     for (j = tamanho - 1; j >= 1; j--) {
@@ -47,7 +38,7 @@ void bubbleSort(int vetor[], int tamanho, int *trocas, int *comparacoes) {
     }
 }
 
-// Função Merge Sort
+// Função para mesclar duas metades ordenadas de um array para o algoritmo Merge Sort
 void merge(int arr[], int left, int mid, int right, int *trocas, int *comparacoes) {
     int i, j, k;
     int n1 = mid - left + 1;
@@ -91,6 +82,7 @@ void merge(int arr[], int left, int mid, int right, int *trocas, int *comparacoe
     }
 }
 
+// Função para ordenar um array usando o algoritmo Merge Sort
 void mergeSort(int arr[], int left, int right, int *trocas, int *comparacoes) {
     if (left < right) {
         int mid = left + (right - left) / 2;
@@ -100,7 +92,7 @@ void mergeSort(int arr[], int left, int right, int *trocas, int *comparacoes) {
     }
 }
 
-// Função QuickSort
+// Função para ordenar um array usando o algoritmo Quick Sort
 void quickSort(int *a, int left, int right, int *trocas, int *comparacoes) {
     int i, j, x, y;
     i = left;
