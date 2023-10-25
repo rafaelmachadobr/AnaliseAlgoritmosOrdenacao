@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 
 // Função para mostrar as estatísticas
 void mostrarEstatisticas(int comparacoes, int trocas, float tempoExecucao) {
@@ -128,7 +129,12 @@ void quickSort(int *a, int left, int right, int *trocas, int *comparacoes) {
 int main() {
     int valor, tamanho;
     int trocas = 0, comparacoes = 0;
+    int sair = 0; // Variável de controle para sair do programa
+    
+    printf("\n=== Programa de Análise de Algoritmos de Ordenação ===\n");
+    printf("Este programa permite analisar o desempenho de algoritmos de ordenação.\n");
 
+	
     printf("Selecione o tamanho da base de dados:\n\n");
     printf("1. 10\n");
     printf("2. 50\n");
@@ -228,8 +234,29 @@ int main() {
     }
 
     tamanho = i;
-
-    int sair = 0; // Variável de controle para sair do programa
+    
+    char *nomeDoArquivo = strrchr(caminhoArquivo, '\\');
+	if (nomeDoArquivo != NULL) {
+	    nomeDoArquivo++; // Avançar para o primeiro caractere após a última barra invertida
+	} else {
+	    // Se não houver barra invertida no caminho, use o caminho inteiro como nome do arquivo
+	    nomeDoArquivo = caminhoArquivo;
+	}
+	
+	// Adicionar a extensão ".txt" ao nome do arquivo
+	char nomeDoRelatorio[256];
+	snprintf(nomeDoRelatorio, sizeof(nomeDoRelatorio), "relatorios\\relatorio_%s.txt", nomeDoArquivo);
+	
+	FILE *relatorio = fopen(nomeDoRelatorio, "w");
+	if (relatorio == NULL) {
+	    printf("Erro ao criar o arquivo de relatório.\n");
+	    return 1;
+	}
+	
+	fprintf(relatorio, "Relatorio de Analise de Algoritmos de Ordenacao\n\n");
+	fprintf(relatorio, "Base de dados selecionada com tamanho %s, %s e %s.\n\n", tamanhos[valor - 1], duplicidade[duplicidadeValor - 1], ordem[ordemValor - 1]);
+	fprintf(relatorio, "Caminho do arquivo: %s\n\n", caminhoArquivo);
+	fclose(relatorio);
 
     while (!sair) {
         printf("Selecione o algoritmo de organização:\n");
@@ -243,36 +270,73 @@ int main() {
             while (getchar() != '\n'); // Limpa o buffer de entrada
             continue;
         }
+        
+        // Extrair o nome do arquivo do caminho
+		char *nomeDoArquivo = strrchr(caminhoArquivo, '\\');
+		if (nomeDoArquivo != NULL) {
+		    nomeDoArquivo++; // Avance para o primeiro caractere após a última barra invertida
+		} else {
+		    // Se não houver barra invertida no caminho, use o caminho inteiro como nome do arquivo
+		    nomeDoArquivo = caminhoArquivo;
+		}
+		
+		// Adicionar a extensão ".txt" ao nome do arquivo
+		char nomeDoRelatorio[256];
+		snprintf(nomeDoRelatorio, sizeof(nomeDoRelatorio), "relatorios\\relatorio_%s.txt", nomeDoArquivo);
+		
+		FILE *relatorio = fopen(nomeDoRelatorio, "a"); // Abra o arquivo de relatório em modo de anexação
+		if (relatorio == NULL) {
+		    printf("Erro ao criar o arquivo de relatório.\n");
+		    return 1;
+		}
 
+		fprintf(relatorio, "Algoritmo: "); // Indique qual algoritmo está sendo registrado
         switch (valor) {
             case 1:
                 // Chama Bubble Sort e inicia timer
+                fprintf(relatorio, "Bubble Sort\n");
                 beginBubble = clock();
                 bubbleSort(lista, tamanho, &trocas, &comparacoes);
                 imprimirArray(lista, tamanho);
                 endBubble = clock();
                 tempoBubble = (float)(endBubble - beginBubble) / CLOCKS_PER_SEC;
+                
+		        fprintf(relatorio, "Número de comparações: %i\n", comparacoes);
+		        fprintf(relatorio, "Número de trocas de posição: %i\n", trocas);
+		        fprintf(relatorio, "Tempo (em segundos): %f\n\n", tempoBubble);
                 mostrarEstatisticas(comparacoes, trocas, tempoBubble);
-                break;
+                
+		        break;
 
             case 2:
                 // Chama o Merge Sort e inicia o timer
+                fprintf(relatorio, "Merge Sort\n");
                 beginMerge = clock();
                 mergeSort(lista, 0, tamanho - 1, &trocas, &comparacoes);
                 imprimirArray(lista, tamanho);
                 endMerge = clock();
                 tempoMerge = (float)(endMerge - beginMerge) / CLOCKS_PER_SEC;
+                
+                fprintf(relatorio, "Número de comparações: %i\n", comparacoes);
+		        fprintf(relatorio, "Número de trocas de posição: %i\n", trocas);
+		        fprintf(relatorio, "Tempo (em segundos): %f\n\n", tempoMerge);
                 mostrarEstatisticas(comparacoes, trocas, tempoMerge);
                 break;
 
             case 3:
                 // Chama o Quick Sort e inicia o timer
-                beginQuick = clock();
+                fprintf(relatorio, "Quick Sort\n");
+				beginQuick = clock();
                 quickSort(lista, 0, tamanho - 1, &trocas, &comparacoes);
                 imprimirArray(lista, tamanho);
                 endQuick = clock();
                 tempoQuick = (float)(endQuick - beginQuick) / CLOCKS_PER_SEC;
+                
+                fprintf(relatorio, "Número de comparações: %i\n", comparacoes);
+		        fprintf(relatorio, "Número de trocas de posição: %i\n", trocas);
+		        fprintf(relatorio, "Tempo (em segundos): %f\n\n", tempoQuick);
                 mostrarEstatisticas(comparacoes, trocas, tempoQuick);
+                
                 break;
 
             case 0:
@@ -283,7 +347,12 @@ int main() {
                 printf("\nOpção inválida! Escolha as opções listadas (apenas o número).\n\n");
                 break;
         }
+        
+        fclose(relatorio);
     }
+    
+    // Fecha o arquivo de relatorio
+    fclose(relatorio);
 
     // Fecha o arquivo utilizado
     fclose(arqNome);
