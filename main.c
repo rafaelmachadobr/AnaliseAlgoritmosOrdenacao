@@ -21,44 +21,6 @@ void bubbleSort(int vetor[], int tamanho) {
     }
 }
 
-// Função Insertion Sort
-void insertionSort(int vetor[], int tamanho) {
-    int i, j, key;
-    for (i = 1; i < tamanho; i++) {
-        key = vetor[i];
-        j = i - 1;
-        comparacoes++;
-        while (j >= 0 && vetor[j] > key) {
-            trocas++;
-            vetor[j + 1] = vetor[j];
-            j = j - 1;
-            movimento++;
-        }
-        trocas++;
-        vetor[j + 1] = key;
-    }
-}
-
-// Função Selection Sort
-void selection_sort(int vetor[], int tamanho) {
-    int i, j, min, aux;
-    for (i = 0; i < (tamanho - 1); i++) {
-        min = i;
-        for (j = (i + 1); j < tamanho; j++) {
-            comparacoes++;
-            if (vetor[j] < vetor[min]) {
-                min = j;
-            }
-        }
-        trocas += 3;
-        if (i != min) {
-            aux = vetor[i];
-            vetor[i] = vetor[min];
-            vetor[min] = aux;
-        }
-    }
-}
-
 // Função QuickSort
 void quick_sort(int *a, int left, int right) {
     int i, j, x, y;
@@ -99,8 +61,6 @@ int main() {
 
     // Variáveis para armazenar tempo
     float beginBubble, endBubble, tempoBubble;
-    float beginSelection, endSelection, tempoSelection;
-    float beginInsertion, endInsertion, tempoInsertion;
     float beginQuick, endQuick, tempoQuick;
 
     FILE *arqNome = fopen("dados\\1k\\Com Duplicidade\\Aleatório\\dtaleat1kdup5.txt", "r");
@@ -123,9 +83,7 @@ int main() {
     LOOP: // Usado para reiniciar o menu
     printf("Selecione o algoritmo de organização:\n");
     printf("1. Bubble Sort;\n");
-    printf("2. Insertion Sort;\n");
-    printf("3. Selection Sort;\n");
-    printf("4. Quick Sort;\n");
+    printf("3. Quick Sort;\n");
     printf("Número do algoritmo: ");
     scanf("\n %d", &valor); // Leitura do input
 
@@ -150,45 +108,7 @@ int main() {
         printf("\nTempo de execução (em segundos): %f\n", tempoBubble);
         break;
 
-    case 2:
-        // Chama Insertion Sort e inicia timer
-        beginInsertion = clock();
-        insertionSort(lista, tamanho);
-
-        printf("["); // Print do array resolvido
-        for (int i = 0; i < tamanho; i++) {
-            printf("%d, ", lista[i]);
-        }
-        printf("]\n");
-
-        endInsertion = clock();
-        tempoInsertion = (float)(endInsertion - beginInsertion) / CLOCKS_PER_SEC; // Contagem do tempo
-
-        printf("\nNúmero de comparações: %i", comparacoes);
-        printf("\nNúmero de trocas de posição: %i", trocas);
-        printf("\nTempo (em segundos): %f\n", tempoInsertion);
-        break;
-
     case 3:
-        // Chama Selection Sort e inicia o timer
-        beginSelection = clock();
-        selection_sort(lista, tamanho);
-
-        printf("["); // Print do array resolvido
-        for (int i = 0; i < tamanho; i++) {
-            printf("%d, ", lista[i]);
-        }
-        printf("]\n");
-
-        endSelection = clock();
-        tempoSelection = (float)(endSelection - beginSelection) / CLOCKS_PER_SEC; // Contagem do tempo
-
-        printf("\nNúmero de comparações: %i", comparacoes);
-        printf("\nNúmero de trocas de posição: %i", trocas);
-        printf("\nTempo (em segundos): %f\n", tempoSelection);
-        break;
-
-    case 4:
         // Chama o Quick Sort e inicia o timer
         beginQuick = clock();
         quick_sort(lista, 0, tamanho - 1);
