@@ -166,7 +166,12 @@ int main() {
         printf("2. Merge Sort;\n");
         printf("3. Quick Sort;\n");
         printf("Número do algoritmo (ou 0 para sair): ");
-        scanf("%d", &valor);
+        
+        if (scanf("%d", &valor) != 1) {
+    		printf("\nEntrada inválida! Insira um número correspondente à opção desejada.\n\n");
+    		while (getchar() != '\n');  // Limpa o buffer de entrada
+    		continue;
+		}
 
         switch (valor) {
             case 1:
