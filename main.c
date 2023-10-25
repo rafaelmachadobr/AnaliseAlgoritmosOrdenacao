@@ -50,7 +50,7 @@ void bubbleSort(int vetor[], int tamanho) {
 }
 
 // Função QuickSort
-void quick_sort(int *a, int left, int right) {
+void quickSort(int *a, int left, int right) {
     int i, j, x, y;
     i = left;
     j = right;
@@ -77,10 +77,10 @@ void quick_sort(int *a, int left, int right) {
         }
     }
     if (j > left) {
-        quick_sort(a, left, j);
+        quickSort(a, left, j);
     }
     if (i < right) {
-        quick_sort(a, i, right);
+        quickSort(a, i, right);
     }
 }
 
@@ -133,7 +133,7 @@ int main() {
     case 3:
         // Chama o Quick Sort e inicia o timer
         beginQuick = clock();
-        quick_sort(lista, 0, tamanho - 1);
+        quickSort(lista, 0, tamanho - 1);
 
         imprimirArray(lista, tamanho);
 
