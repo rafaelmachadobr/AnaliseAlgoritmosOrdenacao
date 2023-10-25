@@ -2,9 +2,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-int movimento = 0; // Variável global de registro dos movimentos.
-int trocas = 0, comparacoes = 0; // Variáveis de registro das trocas e comparações
-
 // Função para mostrar as estatisticas
 void mostrarEstatisticas(int comparacoes, int trocas, float tempoExecucao) {
     printf("\nNúmero de comparações: %i", comparacoes);
@@ -34,13 +31,13 @@ void printArray(int lista[], int tamanho) {
 }
 
 // Função Bubble Sort
-void bubbleSort(int vetor[], int tamanho) {
+void bubbleSort(int vetor[], int tamanho, int *trocas, int *comparacoes) {
     int aux, i, j;
     for (j = tamanho - 1; j >= 1; j--) {
         for (i = 0; i < j; i++) {
-            comparacoes++;
+            (*comparacoes)++;
             if (vetor[i] > vetor[i + 1]) {
-                trocas++;
+                (*trocas)++;
                 aux = vetor[i];
                 vetor[i] = vetor[i + 1];
                 vetor[i + 1] = aux;
@@ -50,42 +47,43 @@ void bubbleSort(int vetor[], int tamanho) {
 }
 
 // Função QuickSort
-void quickSort(int *a, int left, int right) {
+void quickSort(int *a, int left, int right, int *trocas, int *comparacoes) {
     int i, j, x, y;
     i = left;
     j = right;
     x = a[(left + right) / 2];
-    trocas += 3;
+    (*trocas) += 3;
     while (i <= j) {
         while (a[i] < x && i < right) {
             i++;
-            comparacoes++;
-            trocas++;
+            (*comparacoes)++;
+            (*trocas)++;
         }
         while (a[j] > x && j > left) {
             j--;
-            comparacoes++;
-            trocas++;
+            (*comparacoes)++;
+            (*trocas)++;
         }
         if (i <= j) {
             y = a[i];
             a[i] = a[j];
             a[j] = y;
-            movimento += 3;
+            (*trocas) += 3;
             i++;
             j--;
         }
     }
     if (j > left) {
-        quickSort(a, left, j);
+        quickSort(a, left, j, trocas, comparacoes);
     }
     if (i < right) {
-        quickSort(a, i, right);
+        quickSort(a, i, right, trocas, comparacoes);
     }
 }
 
 int main() {
     int numero, valor, tamanho = 50, lista[50] = {}; // Declaração dos valores a serem usados (tamanhos)
+    int trocas = 0, comparacoes = 0; // Variáveis locais para rastrear trocas e comparações
 
     // Variáveis para armazenar tempo
     float beginBubble, endBubble, tempoBubble;
@@ -120,7 +118,7 @@ int main() {
     case 1:
         // Chama Bubble Sort e inicia timer
         beginBubble = clock();
-        bubbleSort(lista, tamanho);
+        bubbleSort(lista, tamanho, &trocas, &comparacoes);
 
         imprimirArray(lista, tamanho);
 
@@ -133,7 +131,7 @@ int main() {
     case 3:
         // Chama o Quick Sort e inicia o timer
         beginQuick = clock();
-        quickSort(lista, 0, tamanho - 1);
+        quickSort(lista, 0, tamanho - 1, &trocas, &comparacoes);
 
         imprimirArray(lista, tamanho);
 
