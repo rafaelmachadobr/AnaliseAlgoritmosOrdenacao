@@ -4,17 +4,16 @@
 
 // Função para mostrar as estatísticas
 void mostrarEstatisticas(int comparacoes, int trocas, float tempoExecucao) {
-    printf("\nNúmero de comparações: %i", comparacoes);
-    printf("\nNúmero de trocas de posição: %i", trocas);
-    printf("\nTempo (em segundos): %f\n", tempoExecucao);
+    printf("\nNúmero de comparações: %i\n", comparacoes);
+    printf("Número de trocas de posição: %i\n", trocas);
+    printf("Tempo (em segundos): %f\n\n", tempoExecucao);
 }
 
 // Função para imprimir o array
 void imprimirArray(int lista[], int tamanho) {
-    printf("[");
+    printf("\n[");
     for (int i = 0; i < tamanho; i++) {
         printf("%d", lista[i]);
-
         if (i < tamanho - 1) {
             printf(", ");
         }
@@ -22,7 +21,7 @@ void imprimirArray(int lista[], int tamanho) {
     printf("]\n");
 }
 
-// Função para ordenar o array usando o algoritmo Bubble Sort
+// Função Bubble Sort
 void bubbleSort(int vetor[], int tamanho, int *trocas, int *comparacoes) {
     int aux, i, j;
     for (j = tamanho - 1; j >= 1; j--) {
@@ -38,7 +37,7 @@ void bubbleSort(int vetor[], int tamanho, int *trocas, int *comparacoes) {
     }
 }
 
-// Função para mesclar duas metades ordenadas de um array para o algoritmo Merge Sort
+// Função Merge Sort
 void merge(int arr[], int left, int mid, int right, int *trocas, int *comparacoes) {
     int i, j, k;
     int n1 = mid - left + 1;
@@ -82,7 +81,6 @@ void merge(int arr[], int left, int mid, int right, int *trocas, int *comparacoe
     }
 }
 
-// Função para ordenar um array usando o algoritmo Merge Sort
 void mergeSort(int arr[], int left, int right, int *trocas, int *comparacoes) {
     if (left < right) {
         int mid = left + (right - left) / 2;
@@ -92,7 +90,7 @@ void mergeSort(int arr[], int left, int right, int *trocas, int *comparacoes) {
     }
 }
 
-// Função para ordenar um array usando o algoritmo Quick Sort
+// Função QuickSort
 void quickSort(int *a, int left, int right, int *trocas, int *comparacoes) {
     int i, j, x, y;
     i = left;
@@ -128,35 +126,108 @@ void quickSort(int *a, int left, int right, int *trocas, int *comparacoes) {
 }
 
 int main() {
-    int valor, tamanho = 50;
-    int lista[50] = {0}; // Inicializa o array com zeros
-    int trocas = 0, comparacoes = 0; // Variáveis locais para rastrear trocas e comparações
+    int valor, tamanho;
+    int trocas = 0, comparacoes = 0;
+
+    printf("Selecione o tamanho da base de dados:\n\n");
+    printf("1. 10\n");
+    printf("2. 50\n");
+    printf("3. 100\n");
+    printf("4. 500\n");
+    printf("5. 1k\n");
+    printf("6. 5k\n");
+    printf("7. 10k\n");
+    printf("8. 50k\n");
+    printf("9. 100k\n\n");
+    printf("Número do tamanho (1-9): ");
+    scanf("%d", &valor);
+
+    char *tamanhos[] = {"10", "50", "100", "500", "1k", "5k", "10k", "50k", "100k"};
+    int tamanhosInteiros[] = {10, 50, 100, 500, 1000, 5000, 10000, 50000, 100000};
+    char *duplicidade[] = {"Com Duplicidade", "Sem Duplicidade"};
+    char *ordem[] = {"Aleatório", "Concavo-DecresceCresce", "Convexo-CresceDescresce", "Crescente", "Descrescente"};
+    char *abreviacoesOrdem[] = {"aleat", "concv", "convx", "cresc", "decre"};
+    char *duplicidadeOrdem[] = {"dup", "uni"};
+
+    printf("\nSelecione a duplicidade:\n\n");
+    printf("1. Com Duplicidade\n");
+    printf("2. Sem Duplicidade\n");
+    printf("\nNúmero da duplicidade (1-2): ");
+    int duplicidadeValor;
+    scanf("%d", &duplicidadeValor);
+
+    if (duplicidadeValor < 1 || duplicidadeValor > 2) {
+        printf("Opção inválida!\n");
+        return 1;
+    }
+
+    printf("Selecione a ordem:\n\n");
+    printf("1. Aleatório\n");
+    printf("2. Concavo-DecresceCresce\n");
+    printf("3. Convexo-CresceDescresce\n");
+    printf("4. Crescente\n");
+    printf("5. Descrescente\n\n");
+    printf("Número da ordem (1-5): ");
+    int ordemValor;
+    scanf("%d", &ordemValor);
+
+    if (ordemValor < 1 || ordemValor > 5) {
+        printf("Opção inválida!\n");
+        return 1;
+    }
+
+	printf("\nSelecione o sufixo do arquivo (0 a 9): ");
+	int arquivoSufixo;
+	scanf("%d", &arquivoSufixo);
+
+	if (arquivoSufixo < 0 || arquivoSufixo > 9) {
+	    printf("Sufixo inválido!\n");
+	    return 1;
+	}
+	
+	tamanho = tamanhosInteiros[valor - 1];
+
+    // Constrói o caminho do arquivo de dados com base nas seleções do usuário
+    char caminhoArquivo[256];
+	snprintf(caminhoArquivo, sizeof(caminhoArquivo), "dados\\%s\\%s\\%s\\dt%s%s%s%d.txt",
+    tamanhos[valor - 1], duplicidade[duplicidadeValor - 1], ordem[ordemValor - 1], abreviacoesOrdem[ordemValor - 1],
+    tamanhos[valor - 1], duplicidadeOrdem[duplicidadeValor - 1], arquivoSufixo);
+
+	printf("\nBase de dados selecionada selecionada com tamanho %s, %s e %s.\n\n", tamanhos[valor - 1], duplicidade[duplicidadeValor - 1], ordem[ordemValor - 1]);
+
+    // Abre o arquivo
+    FILE *arqNome = fopen(caminhoArquivo, "r");
+
+    if (arqNome == NULL) {
+        printf("Erro ao abrir o arquivo. Certifique-se de que o caminho e o nome do arquivo estão corretos.\n");
+        return 1; // Encerra o programa com um código de erro
+    }
+
+    int lista[tamanho];
 
     // Variáveis para armazenar tempo
     float beginBubble, endBubble, tempoBubble;
     float beginMerge, endMerge, tempoMerge;
     float beginQuick, endQuick, tempoQuick;
 
-    FILE *arqNome = fopen("dados\\1k\\Com Duplicidade\\Aleatório\\dtaleat1kdup5.txt", "r");
-
     // Verificação se o arquivo foi devidamente selecionado
-	if (arqNome == NULL) {
-	    printf("Erro ao abrir o arquivo. Certifique-se de que o caminho e o nome do arquivo estão corretos.\n");
-	    return 1; // Encerra o programa com um código de erro
-	}
-	
-	// O arquivo foi aberto com sucesso, podemos continuar a leitura
-	int i = 0;
-	int numeroLido;
-	
-	while (i < tamanho && fscanf(arqNome, "%d", &numeroLido) != EOF) {
-	    if (numeroLido != 0) {
-	        lista[i] = numeroLido;
-	        i++;
-	    }
-	}
+    if (arqNome == NULL) {
+        printf("Erro ao abrir o arquivo. Certifique-se de que o caminho e o nome do arquivo estão corretos.\n");
+        return 1; // Encerra o programa com um código de erro
+    }
 
-	tamanho = i;
+    // O arquivo foi aberto com sucesso, podemos continuar a leitura
+    int i = 0;
+    int numeroLido;
+
+    while (i < tamanho && fscanf(arqNome, "%d", &numeroLido) != EOF) {
+        if (numeroLido != 0) {
+            lista[i] = numeroLido;
+            i++;
+        }
+    }
+
+    tamanho = i;
 
     int sair = 0; // Variável de controle para sair do programa
 
@@ -166,12 +237,12 @@ int main() {
         printf("2. Merge Sort;\n");
         printf("3. Quick Sort;\n");
         printf("Número do algoritmo (ou 0 para sair): ");
-        
+
         if (scanf("%d", &valor) != 1) {
-    		printf("\nEntrada inválida! Insira um número correspondente à opção desejada.\n\n");
-    		while (getchar() != '\n');  // Limpa o buffer de entrada
-    		continue;
-		}
+            printf("\nEntrada inválida! Insira um número correspondente à opção desejada.\n\n");
+            while (getchar() != '\n'); // Limpa o buffer de entrada
+            continue;
+        }
 
         switch (valor) {
             case 1:
@@ -183,16 +254,16 @@ int main() {
                 tempoBubble = (float)(endBubble - beginBubble) / CLOCKS_PER_SEC;
                 mostrarEstatisticas(comparacoes, trocas, tempoBubble);
                 break;
-                
+
             case 2:
-			    // Chama o Merge Sort e inicia o timer
-			    beginMerge = clock();
-			    mergeSort(lista, 0, tamanho - 1, &trocas, &comparacoes);
-			    imprimirArray(lista, tamanho);
-			    endMerge = clock();
-			    tempoMerge = (float)(endMerge - beginMerge) / CLOCKS_PER_SEC;
-			    mostrarEstatisticas(comparacoes, trocas, tempoMerge);
-			    break;
+                // Chama o Merge Sort e inicia o timer
+                beginMerge = clock();
+                mergeSort(lista, 0, tamanho - 1, &trocas, &comparacoes);
+                imprimirArray(lista, tamanho);
+                endMerge = clock();
+                tempoMerge = (float)(endMerge - beginMerge) / CLOCKS_PER_SEC;
+                mostrarEstatisticas(comparacoes, trocas, tempoMerge);
+                break;
 
             case 3:
                 // Chama o Quick Sort e inicia o timer
@@ -217,6 +288,7 @@ int main() {
     // Fecha o arquivo utilizado
     fclose(arqNome);
 
-    return 0;
+	free(lista); // Libera a memória alocada para o array dinâmico
+	return 0; // Encerra o programa
 }
 
