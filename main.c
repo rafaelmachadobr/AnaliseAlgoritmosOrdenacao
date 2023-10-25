@@ -47,6 +47,59 @@ void bubbleSort(int vetor[], int tamanho, int *trocas, int *comparacoes) {
     }
 }
 
+// Função Merge Sort
+void merge(int arr[], int left, int mid, int right, int *trocas, int *comparacoes) {
+    int i, j, k;
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
+
+    int L[n1], R[n2];
+
+    for (i = 0; i < n1; i++) {
+        L[i] = arr[left + i];
+    }
+    for (j = 0; j < n2; j++) {
+        R[j] = arr[mid + 1 + j];
+    }
+
+    i = 0;
+    j = 0;
+    k = left;
+    while (i < n1 && j < n2) {
+        (*comparacoes)++;
+        if (L[i] <= R[j]) {
+            arr[k] = L[i];
+            i++;
+        } else {
+            arr[k] = R[j];
+            j++;
+        }
+        (*trocas)++;
+        k++;
+    }
+
+    while (i < n1) {
+        arr[k] = L[i];
+        i++;
+        k++;
+    }
+
+    while (j < n2) {
+        arr[k] = R[j];
+        j++;
+        k++;
+    }
+}
+
+void mergeSort(int arr[], int left, int right, int *trocas, int *comparacoes) {
+    if (left < right) {
+        int mid = left + (right - left) / 2;
+        mergeSort(arr, left, mid, trocas, comparacoes);
+        mergeSort(arr, mid + 1, right, trocas, comparacoes);
+        merge(arr, left, mid, right, trocas, comparacoes);
+    }
+}
+
 // Função QuickSort
 void quickSort(int *a, int left, int right, int *trocas, int *comparacoes) {
     int i, j, x, y;
@@ -89,6 +142,7 @@ int main() {
 
     // Variáveis para armazenar tempo
     float beginBubble, endBubble, tempoBubble;
+    float beginMerge, endMerge, tempoMerge;
     float beginQuick, endQuick, tempoQuick;
 
     FILE *arqNome = fopen("dados\\1k\\Com Duplicidade\\Aleatório\\dtaleat1kdup5.txt", "r");
@@ -117,6 +171,7 @@ int main() {
     while (!sair) {
         printf("Selecione o algoritmo de organização:\n");
         printf("1. Bubble Sort;\n");
+        printf("2. Merge Sort;\n");
         printf("3. Quick Sort;\n");
         printf("Número do algoritmo (ou 0 para sair): ");
         scanf("%d", &valor);
@@ -131,6 +186,16 @@ int main() {
                 tempoBubble = (float)(endBubble - beginBubble) / CLOCKS_PER_SEC;
                 mostrarEstatisticas(comparacoes, trocas, tempoBubble);
                 break;
+                
+            case 2:
+			    // Chama o Merge Sort e inicia o timer
+			    beginMerge = clock();
+			    mergeSort(lista, 0, tamanho - 1, &trocas, &comparacoes);
+			    imprimirArray(lista, tamanho);
+			    endMerge = clock();
+			    tempoMerge = (float)(endMerge - beginMerge) / CLOCKS_PER_SEC;
+			    mostrarEstatisticas(comparacoes, trocas, tempoMerge);
+			    break;
 
             case 3:
                 // Chama o Quick Sort e inicia o timer
