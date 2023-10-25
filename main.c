@@ -14,6 +14,7 @@ void imprimirArray(int lista[], int tamanho) {
     printf("[");
     for (int i = 0; i < tamanho; i++) {
         printf("%d", lista[i]);
+
         if (i < tamanho - 1) {
             printf(", ");
         }
@@ -82,7 +83,8 @@ void quickSort(int *a, int left, int right, int *trocas, int *comparacoes) {
 }
 
 int main() {
-    int numero, valor, tamanho = 50, lista[50] = {}; // Declaração dos valores a serem usados (tamanhos)
+    int valor, tamanho = 50;
+    int lista[50] = {0}; // Inicializa o array com zeros
     int trocas = 0, comparacoes = 0; // Variáveis locais para rastrear trocas e comparações
 
     // Variáveis para armazenar tempo
@@ -92,58 +94,62 @@ int main() {
     FILE *arqNome = fopen("dados\\1k\\Com Duplicidade\\Aleatório\\dtaleat1kdup5.txt", "r");
 
     // Verificação se o arquivo foi devidamente selecionado
-    if (arqNome != NULL) {
-        int i = 0;
-    int numeroLido;
+	if (arqNome == NULL) {
+	    printf("Erro ao abrir o arquivo. Certifique-se de que o caminho e o nome do arquivo estão corretos.\n");
+	    return 1; // Encerra o programa com um código de erro
+	}
+	
+	// O arquivo foi aberto com sucesso, podemos continuar a leitura
+	int i = 0;
+	int numeroLido;
+	
+	while (i < tamanho && fscanf(arqNome, "%d", &numeroLido) != EOF) {
+	    if (numeroLido != 0) {
+	        lista[i] = numeroLido;
+	        i++;
+	    }
+	}
 
-    while (i < tamanho && fscanf(arqNome, "%d", &numeroLido) != EOF) {
-        if (numeroLido != 0) {
-            lista[i] = numeroLido;
-            i++;
+	tamanho = i;
+
+    int sair = 0; // Variável de controle para sair do programa
+
+    while (!sair) {
+        printf("Selecione o algoritmo de organização:\n");
+        printf("1. Bubble Sort;\n");
+        printf("3. Quick Sort;\n");
+        printf("Número do algoritmo (ou 0 para sair): ");
+        scanf("%d", &valor);
+
+        switch (valor) {
+            case 1:
+                // Chama Bubble Sort e inicia timer
+                beginBubble = clock();
+                bubbleSort(lista, tamanho, &trocas, &comparacoes);
+                imprimirArray(lista, tamanho);
+                endBubble = clock();
+                tempoBubble = (float)(endBubble - beginBubble) / CLOCKS_PER_SEC;
+                mostrarEstatisticas(comparacoes, trocas, tempoBubble);
+                break;
+
+            case 3:
+                // Chama o Quick Sort e inicia o timer
+                beginQuick = clock();
+                quickSort(lista, 0, tamanho - 1, &trocas, &comparacoes);
+                imprimirArray(lista, tamanho);
+                endQuick = clock();
+                tempoQuick = (float)(endQuick - beginQuick) / CLOCKS_PER_SEC;
+                mostrarEstatisticas(comparacoes, trocas, tempoQuick);
+                break;
+
+            case 0:
+                sair = 1; // Define a variável "sair" como 1 para sair do loop
+                break;
+
+            default:
+                printf("\nOpção inválida! Escolha as opções listadas (apenas o número).\n\n");
+                break;
         }
-    }
-
-    tamanho = i;
-    }
-
-    LOOP: // Usado para reiniciar o menu
-    printf("Selecione o algoritmo de organização:\n");
-    printf("1. Bubble Sort;\n");
-    printf("3. Quick Sort;\n");
-    printf("Número do algoritmo: ");
-    scanf("\n %d", &valor); // Leitura do input
-
-    switch (valor) // Switch que trata qual função será chamada
-    {
-    case 1:
-        // Chama Bubble Sort e inicia timer
-        beginBubble = clock();
-        bubbleSort(lista, tamanho, &trocas, &comparacoes);
-
-        imprimirArray(lista, tamanho);
-
-        endBubble = clock();
-        tempoBubble = (float)(endBubble - beginBubble) / CLOCKS_PER_SEC; // Contagem do tempo
-
-        mostrarEstatisticas(comparacoes, trocas, tempoBubble);
-        break;
-
-    case 3:
-        // Chama o Quick Sort e inicia o timer
-        beginQuick = clock();
-        quickSort(lista, 0, tamanho - 1, &trocas, &comparacoes);
-
-        imprimirArray(lista, tamanho);
-
-        endQuick = clock();
-        tempoQuick = (float)(endQuick - beginQuick) / CLOCKS_PER_SEC; // Contagem do tempo
-
-        mostrarEstatisticas(comparacoes, trocas, tempoQuick);
-        break;
-
-    default: // Caso o usuário escolha um número diferente de 1, 2, 3 ou 4
-        printf("\nOpção inválida! Escolha as opções listadas (apenas o número).\n\n");
-        goto LOOP;
     }
 
     // Fecha o arquivo utilizado
