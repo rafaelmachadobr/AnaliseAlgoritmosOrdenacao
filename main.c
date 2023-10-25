@@ -5,6 +5,34 @@
 int movimento = 0; // Variável global de registro dos movimentos.
 int trocas = 0, comparacoes = 0; // Variáveis de registro das trocas e comparações
 
+// Função para mostrar as estatisticas
+void mostrarEstatisticas(int comparacoes, int trocas, float tempoExecucao) {
+    printf("\nNúmero de comparações: %i", comparacoes);
+    printf("\nNúmero de trocas de posição: %i", trocas);
+    printf("\nTempo (em segundos): %f\n", tempoExecucao);
+}
+
+// Função para imprimir o array
+void imprimirArray(int lista[], int tamanho) {
+    printf("[");
+    for (int i = 0; i < tamanho; i++) {
+        printf("%d", lista[i]);
+        if (i < tamanho - 1) {
+            printf(", ");
+        }
+    }
+    printf("]\n");
+}
+
+// Função para printar o array
+void printArray(int lista[], int tamanho) {
+    printf("[");
+    for (int i = 0; i < tamanho; i++) {
+        printf("%d, ", lista[i]);
+    }
+    printf("]\n");
+}
+
 // Função Bubble Sort
 void bubbleSort(int vetor[], int tamanho) {
     int aux, i, j;
@@ -94,18 +122,12 @@ int main() {
         beginBubble = clock();
         bubbleSort(lista, tamanho);
 
-        printf("["); // Print do array resolvido
-        for (int i = 0; i < tamanho; i++) {
-            printf("%d, ", lista[i]);
-        }
-        printf("]\n");
+        imprimirArray(lista, tamanho);
 
         endBubble = clock();
         tempoBubble = (float)(endBubble - beginBubble) / CLOCKS_PER_SEC; // Contagem do tempo
 
-        printf("\nNúmero de comparações: %i", comparacoes);
-        printf("\nNúmero de trocas de posição: %i", trocas);
-        printf("\nTempo de execução (em segundos): %f\n", tempoBubble);
+        mostrarEstatisticas(comparacoes, trocas, tempoBubble);
         break;
 
     case 3:
@@ -113,18 +135,12 @@ int main() {
         beginQuick = clock();
         quick_sort(lista, 0, tamanho - 1);
 
-        printf("["); // Print do array resolvido
-        for (int i = 0; i < tamanho; i++) {
-            printf("%d, ", lista[i]);
-        }
-        printf("]\n");
+        imprimirArray(lista, tamanho);
 
         endQuick = clock();
         tempoQuick = (float)(endQuick - beginQuick) / CLOCKS_PER_SEC; // Contagem do tempo
 
-        printf("\nNúmero de comparações: %i", comparacoes);
-        printf("\nNúmero de trocas de posição: %i", trocas);
-        printf("\nTempo (em segundos): %f\n", tempoQuick);
+        mostrarEstatisticas(comparacoes, trocas, tempoQuick);
         break;
 
     default: // Caso o usuário escolha um número diferente de 1, 2, 3 ou 4
