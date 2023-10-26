@@ -1,0 +1,29 @@
+Relatório de Análise de Algoritmos de Ordenação
+
+Base de dados selecionada com tamanho 10, Sem Duplicidade e Descrescente.
+
+Caminho do arquivo: dados\10\Sem Duplicidade\Descrescente\dtdecre10uni0.txt
+
+Base de dados original: [951, 692, 683, 583, 558, 338, 330, 253, 108, 107]
+
+Algoritmo: Algoritmo: Bubble Sort
+Número de comparações: 45
+Número de trocas de posição: 45
+Tempo (em segundos): 0,016000
+
+Base de dados ordenada: [107, 108, 253, 330, 338, 558, 583, 683, 692, 951]
+
+Algoritmo: Algoritmo: Merge Sort
+Número de comparações: 64
+Número de trocas de posição: 64
+Tempo (em segundos): 0,000000
+
+Base de dados ordenada: [107, 108, 253, 330, 338, 558, 583, 683, 692, 951]
+
+Algoritmo: Algoritmo: Quick Sort
+Número de comparações: 83
+Número de trocas de posição: 119
+Tempo (em segundos): 0,015000
+
+Base de dados ordenada: [107, 108, 253, 330, 338, 558, 583, 683, 692, 951]
+

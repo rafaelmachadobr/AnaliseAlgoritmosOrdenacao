@@ -1,0 +1,29 @@
+Relatório de Análise de Algoritmos de Ordenação
+
+Base de dados selecionada com tamanho 10, Com Duplicidade e Convexo-CresceDescresce.
+
+Caminho do arquivo: dados\10\Com Duplicidade\Convexo-CresceDescresce\dtconvx10dup0.txt
+
+Base de dados original: [253, 337, 593, 957, 958, 808, 421, 307, 205, 112]
+
+Algoritmo: Algoritmo: Bubble Sort
+Número de comparações: 45
+Número de trocas de posição: 29
+Tempo (em segundos): 0,000000
+
+Base de dados ordenada: [112, 205, 253, 307, 337, 421, 593, 808, 957, 958]
+
+Algoritmo: Algoritmo: Merge Sort
+Número de comparações: 64
+Número de trocas de posição: 48
+Tempo (em segundos): 0,016000
+
+Base de dados ordenada: [112, 205, 253, 307, 337, 421, 593, 808, 957, 958]
+
+Algoritmo: Algoritmo: Quick Sort
+Número de comparações: 83
+Número de trocas de posição: 103
+Tempo (em segundos): 0,000000
+
+Base de dados ordenada: [112, 205, 253, 307, 337, 421, 593, 808, 957, 958]
+

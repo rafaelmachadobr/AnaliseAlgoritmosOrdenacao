@@ -451,7 +451,12 @@ int main()
 		free(lista);
 
 		printf("\nDeseja sair do programa? (0 para sair ou qualquer outro número para continuar): ");
-		scanf("%d", &sairPrograma);
+		int resposta;
+		scanf("%d", &resposta);
+		if (resposta == 0)
+		{
+			sairPrograma = 1;
+		}
 	}
 
 	printf("\nObrigado por usar o nosso programa! Esperamos que tenha sido útil.\n");

@@ -1,0 +1,29 @@
+Relatório de Análise de Algoritmos de Ordenação
+
+Base de dados selecionada com tamanho 50, Sem Duplicidade e Concavo-DecresceCresce.
+
+Caminho do arquivo: dados\50\Sem Duplicidade\Concavo-DecresceCresce\dtconcv50uni0.txt
+
+Base de dados original: [4850, 4748, 4401, 4391, 4302, 4041, 3710, 3565, 3472, 3360, 3233, 2669, 2331, 2069, 1954, 1726, 1484, 1197, 1167, 728, 598, 561, 482, 431, 196, 436, 534, 597, 643, 1126, 1183, 1226, 1567, 1949, 2061, 2284, 2396, 3097, 3285, 3430, 3539, 3662, 3934, 4296, 4329, 4397, 4496, 4752, 4923, 4986]
+
+Algoritmo: Algoritmo: Bubble Sort
+Número de comparações: 1225
+Número de trocas de posição: 576
+Tempo (em segundos): 0,000000
+
+Base de dados ordenada: [196, 431, 436, 482, 534, 561, 597, 598, 643, 728, 1126, 1167, 1183, 1197, 1226, 1484, 1567, 1726, 1949, 1954, 2061, 2069, 2284, 2331, 2396, 2669, 3097, 3233, 3285, 3360, 3430, 3472, 3539, 3565, 3662, 3710, 3934, 4041, 4296, 4302, 4329, 4391, 4397, 4401, 4496, 4748, 4752, 4850, 4923, 4986]
+
+Algoritmo: Algoritmo: Merge Sort
+Número de comparações: 1378
+Número de trocas de posição: 729
+Tempo (em segundos): 0,000000
+
+Base de dados ordenada: [196, 431, 436, 482, 534, 561, 597, 598, 643, 728, 1126, 1167, 1183, 1197, 1226, 1484, 1567, 1726, 1949, 1954, 2061, 2069, 2284, 2331, 2396, 2669, 3097, 3233, 3285, 3360, 3430, 3472, 3539, 3565, 3662, 3710, 3934, 4041, 4296, 4302, 4329, 4391, 4397, 4401, 4496, 4748, 4752, 4850, 4923, 4986]
+
+Algoritmo: Algoritmo: Quick Sort
+Número de comparações: 1571
+Número de trocas de posição: 1108
+Tempo (em segundos): 0,016000
+
+Base de dados ordenada: [196, 431, 436, 482, 534, 561, 597, 598, 643, 728, 1126, 1167, 1183, 1197, 1226, 1484, 1567, 1726, 1949, 1954, 2061, 2069, 2284, 2331, 2396, 2669, 3097, 3233, 3285, 3360, 3430, 3472, 3539, 3565, 3662, 3710, 3934, 4041, 4296, 4302, 4329, 4391, 4397, 4401, 4496, 4748, 4752, 4850, 4923, 4986]
+
