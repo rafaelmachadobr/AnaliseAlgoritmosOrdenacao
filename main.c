@@ -47,110 +47,111 @@ void bubbleSort(int vetor[], int tamanho, int *trocas, int *comparacoes)
 }
 
 // Funcao Merge Sort
-void merge(int arr[], int left, int mid, int right, int *trocas, int *comparacoes)
+void merge(int arr[], int esquerda, int meio, int direita, int *trocas, int *comparacoes)
 {
-	int i, j, k;
-	int n1 = mid - left + 1;
-	int n2 = right - mid;
+    int i, j, k;
+    int n1 = meio - esquerda + 1;
+    int n2 = direita - meio;
 
-	int L[n1], R[n2];
+    int L[n1], R[n2];
 
-	for (i = 0; i < n1; i++)
-	{
-		L[i] = arr[left + i];
-	}
-	for (j = 0; j < n2; j++)
-	{
-		R[j] = arr[mid + 1 + j];
-	}
+    for (i = 0; i < n1; i++)
+    {
+        L[i] = arr[esquerda + i];
+    }
+    for (j = 0; j < n2; j++)
+    {
+        R[j] = arr[meio + 1 + j];
+    }
 
-	i = 0;
-	j = 0;
-	k = left;
-	while (i < n1 && j < n2)
-	{
-		(*comparacoes)++;
-		if (L[i] <= R[j])
-		{
-			arr[k] = L[i];
-			i++;
-		}
-		else
-		{
-			arr[k] = R[j];
-			j++;
-		}
-		(*trocas)++;
-		k++;
-	}
+    i = 0;
+    j = 0;
+    k = esquerda;
+    while (i < n1 && j < n2)
+    {
+        (*comparacoes)++;
+        if (L[i] <= R[j])
+        {
+            arr[k] = L[i];
+            i++;
+        }
+        else
+        {
+            arr[k] = R[j];
+            j++;
+        }
+        (*trocas)++;
+        k++;
+    }
 
-	while (i < n1)
-	{
-		arr[k] = L[i];
-		i++;
-		k++;
-	}
+    while (i < n1)
+    {
+        arr[k] = L[i];
+        i++;
+        k++;
+    }
 
-	while (j < n2)
-	{
-		arr[k] = R[j];
-		j++;
-		k++;
-	}
+    while (j < n2)
+    {
+        arr[k] = R[j];
+        j++;
+        k++;
+    }
 }
 
-void mergeSort(int arr[], int left, int right, int *trocas, int *comparacoes)
+void mergeSort(int arr[], int esquerda, int direita, int *trocas, int *comparacoes)
 {
-	if (left < right)
-	{
-		int mid = left + (right - left) / 2;
-		mergeSort(arr, left, mid, trocas, comparacoes);
-		mergeSort(arr, mid + 1, right, trocas, comparacoes);
-		merge(arr, left, mid, right, trocas, comparacoes);
-	}
+    if (esquerda < direita)
+    {
+        int meio = esquerda + (direita - esquerda) / 2;
+        mergeSort(arr, esquerda, meio, trocas, comparacoes);
+        mergeSort(arr, meio + 1, direita, trocas, comparacoes);
+        merge(arr, esquerda, meio, direita, trocas, comparacoes);
+    }
 }
 
 // Funcao QuickSort
-void quickSort(int *a, int left, int right, int *trocas, int *comparacoes)
+void quickSort(int *a, int esquerda, int direita, int *trocas, int *comparacoes)
 {
-	int i, j, x, y;
-	i = left;
-	j = right;
-	x = a[(left + right) / 2];
-	(*trocas) += 3;
-	while (i <= j)
-	{
-		while (a[i] < x && i < right)
-		{
-			i++;
-			(*comparacoes)++;
-			(*trocas)++;
-		}
-		while (a[j] > x && j > left)
-		{
-			j--;
-			(*comparacoes)++;
-			(*trocas)++;
-		}
-		if (i <= j)
-		{
-			y = a[i];
-			a[i] = a[j];
-			a[j] = y;
-			(*trocas) += 3;
-			i++;
-			j--;
-		}
-	}
-	if (j > left)
-	{
-		quickSort(a, left, j, trocas, comparacoes);
-	}
-	if (i < right)
-	{
-		quickSort(a, i, right, trocas, comparacoes);
-	}
+    int i, j, x, y;
+    i = esquerda;
+    j = direita;
+    x = a[(esquerda + direita) / 2];
+    (*trocas) += 3;
+    while (i <= j)
+    {
+        while (a[i] < x && i < direita)
+        {
+            i++;
+            (*comparacoes)++;
+            (*trocas)++;
+        }
+        while (a[j] > x && j > esquerda)
+        {
+            j--;
+            (*comparacoes)++;
+            (*trocas)++;
+        }
+        if (i <= j)
+        {
+            y = a[i];
+            a[i] = a[j];
+            a[j] = y;
+            (*trocas) += 3;
+            i++;
+            j--;
+        }
+    }
+    if (j > esquerda)
+    {
+        quickSort(a, esquerda, j, trocas, comparacoes);
+    }
+    if (i < direita)
+    {
+        quickSort(a, i, direita, trocas, comparacoes);
+    }
 }
+
 
 int main()
 {
@@ -179,7 +180,7 @@ int main()
 		char *tamanhos[] = {"10", "50", "100", "500", "1k", "5k", "10k", "50k", "100k"};
 		int tamanhosInteiros[] = {10, 50, 100, 500, 1000, 5000, 10000, 50000, 100000};
 		char *duplicidade[] = {"Com Duplicidade", "Sem Duplicidade"};
-		char *ordem[] = {"AleatÃ³rio", "Concavo-DecresceCresce", "Convexo-CresceDescresce", "Crescente", "Descrescente"};
+		char *ordem[] = {"Aleatório", "Concavo-DecresceCresce", "Convexo-CresceDescresce", "Crescente", "Descrescente"};
 		char *abreviacoesOrdem[] = {"aleat", "concv", "convx", "cresc", "decre"};
 		char *duplicidadeOrdem[] = {"dup", "uni"};
 
@@ -429,3 +430,4 @@ int main()
 
 	return 0; // Encerra o programa
 }
+

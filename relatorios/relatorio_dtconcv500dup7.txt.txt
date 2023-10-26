@@ -1,0 +1,21 @@
+Relatorio de Analise de Algoritmos de Ordenacao
+
+Base de dados selecionada com tamanho 500, Com Duplicidade e Concavo-DecresceCresce.
+
+Caminho do arquivo: dados\500\Com Duplicidade\Concavo-DecresceCresce\dtconcv500dup7.txt
+
+Algoritmo: Bubble Sort
+Numero de comparacoes: 123753
+Numero de trocas de posicao: 61502
+Tempo (em segundos): 0.033000
+
+Algoritmo: Merge Sort
+Numero de comparacoes: 126018
+Numero de trocas de posicao: 63767
+Tempo (em segundos): 0.040000
+
+Algoritmo: Quick Sort
+Numero de comparacoes: 129501
+Numero de trocas de posicao: 68780
+Tempo (em segundos): 0.035000
+
