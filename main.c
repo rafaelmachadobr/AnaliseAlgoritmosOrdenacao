@@ -178,25 +178,26 @@ int main()
 
 	while (!sairPrograma)
 	{
-		printf("Selecione o tamanho da base de dados:\n\n");
-		printf("1. 10\n");
-		printf("2. 50\n");
-		printf("3. 100\n");
-		printf("4. 500\n");
-		printf("5. 1k\n");
-		printf("6. 5k\n");
-		printf("7. 10k\n");
-		printf("8. 50k\n");
-		printf("9. 100k\n\n");
-		printf("Número do tamanho (1-9): ");
-		scanf("%d", &valor);
-
 		char *tamanhos[] = {"10", "50", "100", "500", "1k", "5k", "10k", "50k", "100k"};
 		int tamanhosInteiros[] = {10, 50, 100, 500, 1000, 5000, 10000, 50000, 100000};
 		char *duplicidade[] = {"Com Duplicidade", "Sem Duplicidade"};
 		char *ordem[] = {"Aleatório", "Concavo-DecresceCresce", "Convexo-CresceDescresce", "Crescente", "Descrescente"};
 		char *abreviacoesOrdem[] = {"aleat", "concv", "convx", "cresc", "decre"};
 		char *duplicidadeOrdem[] = {"dup", "uni"};
+
+		printf("Selecione o tamanho da base de dados:\n\n");
+		for (int i = 0; i < 9; i++)
+		{
+			printf("%d. %s\n", i + 1, tamanhos[i]);
+		}
+		printf("\nNúmero do tamanho (1-9): ");
+		scanf("%d", &valor);
+
+		if (valor < 1 || valor > 9)
+		{
+			printf("\nOpção inválida!\n\n");
+			continue; // Volta ao início do loop para escolher um tamanho válido
+		}
 
 		printf("\nSelecione a duplicidade:\n\n");
 		printf("1. Com Duplicidade\n");
@@ -413,13 +414,11 @@ int main()
 		trocas = 0;
 		comparacoes = 0;
 
+		// Libera a memória alocada dinamicamente quando não for mais necessária
+		free(lista);
+
 		printf("\nDeseja sair do programa? (0 para sair ou qualquer outro número para continuar): ");
-		int resposta;
-		scanf("%d", &resposta);
-		if (resposta == 0)
-		{
-			sairPrograma = 1;
-		}
+		scanf("%d", &sairPrograma);
 	}
 
 	printf("\nObrigado por usar o nosso programa! Esperamos que tenha sido útil.\n");
