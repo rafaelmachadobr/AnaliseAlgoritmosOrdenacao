@@ -271,7 +271,7 @@ int main()
 		// Abre o arquivo
 		FILE *arqNome = abrirArquivo(caminhoArquivo, "r");
 
-		int lista[tamanho];
+		int *lista = (int *)malloc(tamanho * sizeof(int));
 
 		// Variáveis para armazenar tempo
 		float beginBubble, endBubble, tempoBubble;
