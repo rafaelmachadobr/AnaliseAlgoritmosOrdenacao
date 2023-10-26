@@ -153,6 +153,15 @@ void quickSort(int *a, int esquerda, int direita, int *trocas, int *comparacoes)
 	}
 }
 
+// Função para gerar um relatório
+void gerarRelatorio(FILE *relatorio, const char *algoritmo, int comparacoes, int trocas, float tempo)
+{
+	fprintf(relatorio, "Algoritmo: %s\n", algoritmo);
+	fprintf(relatorio, "Número de comparações: %i\n", comparacoes);
+	fprintf(relatorio, "Número de trocas de posição: %i\n", trocas);
+	fprintf(relatorio, "Tempo (em segundos): %f\n\n", tempo);
+}
+
 // Função para abrir um arquivo e retornar o ponteiro para ele, com tratamento de erros
 FILE *abrirArquivo(const char *caminho, const char *modo)
 {
@@ -291,6 +300,18 @@ int main()
 			nomeDoArquivo = caminhoArquivo;
 		}
 
+		// Imprime a base de dados selecionada
+		printf("Dados da base de dados: [");
+		for (int i = 0; i < tamanho; i++)
+		{
+			printf("%d", lista[i]);
+			if (i < tamanho - 1)
+			{
+				printf(", ");
+			}
+		}
+		printf("]\n\n");
+
 		// Adicionar a extensão ".txt" ao nome do arquivo
 		char nomeDoRelatorio[256];
 		snprintf(nomeDoRelatorio, sizeof(nomeDoRelatorio), "relatorios\\relatorio_%s.txt", nomeDoArquivo);
@@ -299,6 +320,16 @@ int main()
 		fprintf(relatorio, "Relatório de Análise de Algoritmos de Ordenação\n\n");
 		fprintf(relatorio, "Base de dados selecionada com tamanho %s, %s e %s.\n\n", tamanhos[valor - 1], duplicidade[duplicidadeValor - 1], ordem[ordemValor - 1]);
 		fprintf(relatorio, "Caminho do arquivo: %s\n\n", caminhoArquivo);
+		fprintf(relatorio, "Base de dados original: [");
+		for (int i = 0; i < tamanho; i++)
+		{
+			fprintf(relatorio, "%d", lista[i]);
+			if (i < tamanho - 1)
+			{
+				fprintf(relatorio, ", ");
+			}
+		}
+		fprintf(relatorio, "]\n\n");
 		fclose(relatorio);
 
 		int sairBaseDados = 0;
@@ -341,47 +372,38 @@ int main()
 			{
 			case 1:
 				// Chama Bubble Sort e inicia timer
-				fprintf(relatorio, "Bubble Sort\n");
 				beginBubble = clock();
 				bubbleSort(lista, tamanho, &trocas, &comparacoes);
 				imprimirArray(lista, tamanho);
 				endBubble = clock();
 				tempoBubble = (float)(endBubble - beginBubble) / CLOCKS_PER_SEC;
 
-				fprintf(relatorio, "Número de comparações: %i\n", comparacoes);
-				fprintf(relatorio, "Número de trocas de posição: %i\n", trocas);
-				fprintf(relatorio, "Tempo (em segundos): %f\n\n", tempoBubble);
+				gerarRelatorio(relatorio, "Bubble Sort", comparacoes, trocas, tempoBubble);
 				mostrarEstatisticas(comparacoes, trocas, tempoBubble);
 
 				break;
 
 			case 2:
 				// Chama o Merge Sort e inicia o timer
-				fprintf(relatorio, "Merge Sort\n");
 				beginMerge = clock();
 				mergeSort(lista, 0, tamanho - 1, &trocas, &comparacoes);
 				imprimirArray(lista, tamanho);
 				endMerge = clock();
 				tempoMerge = (float)(endMerge - beginMerge) / CLOCKS_PER_SEC;
 
-				fprintf(relatorio, "Número de comparações: %i\n", comparacoes);
-				fprintf(relatorio, "Número de trocas de posição: %i\n", trocas);
-				fprintf(relatorio, "Tempo (em segundos): %f\n\n", tempoMerge);
+				gerarRelatorio(relatorio, "Merge Sort", comparacoes, trocas, tempoMerge);
 				mostrarEstatisticas(comparacoes, trocas, tempoMerge);
 				break;
 
 			case 3:
 				// Chama o Quick Sort e inicia o timer
-				fprintf(relatorio, "Quick Sort\n");
 				beginQuick = clock();
 				quickSort(lista, 0, tamanho - 1, &trocas, &comparacoes);
 				imprimirArray(lista, tamanho);
 				endQuick = clock();
 				tempoQuick = (float)(endQuick - beginQuick) / CLOCKS_PER_SEC;
 
-				fprintf(relatorio, "Número de comparações: %i\n", comparacoes);
-				fprintf(relatorio, "Número de trocas de posição: %i\n", trocas);
-				fprintf(relatorio, "Tempo (em segundos): %f\n\n", tempoQuick);
+				gerarRelatorio(relatorio, "Quick Sort", comparacoes, trocas, tempoQuick);
 				mostrarEstatisticas(comparacoes, trocas, tempoQuick);
 
 				break;
