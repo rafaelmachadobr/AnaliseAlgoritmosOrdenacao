@@ -154,12 +154,23 @@ void quickSort(int *a, int esquerda, int direita, int *trocas, int *comparacoes)
 }
 
 // Função para gerar um relatório
-void gerarRelatorio(FILE *relatorio, const char *algoritmo, int comparacoes, int trocas, float tempo)
+void gerarRelatorio(FILE *relatorio, const char *algoritmo, int comparacoes, int trocas, float tempo, int lista[], int tamanho)
 {
 	fprintf(relatorio, "Algoritmo: %s\n", algoritmo);
 	fprintf(relatorio, "Número de comparações: %i\n", comparacoes);
 	fprintf(relatorio, "Número de trocas de posição: %i\n", trocas);
 	fprintf(relatorio, "Tempo (em segundos): %f\n\n", tempo);
+
+	fprintf(relatorio, "Base de dados ordenada: [");
+	for (int i = 0; i < tamanho; i++)
+	{
+		fprintf(relatorio, "%d", lista[i]);
+		if (i < tamanho - 1)
+		{
+			fprintf(relatorio, ", ");
+		}
+	}
+	fprintf(relatorio, "]\n\n");
 }
 
 // Função para abrir um arquivo e retornar o ponteiro para ele, com tratamento de erros
@@ -378,7 +389,7 @@ int main()
 				endBubble = clock();
 				tempoBubble = (float)(endBubble - beginBubble) / CLOCKS_PER_SEC;
 
-				gerarRelatorio(relatorio, "Bubble Sort", comparacoes, trocas, tempoBubble);
+				gerarRelatorio(relatorio, "Bubble Sort", comparacoes, trocas, tempoBubble, lista, tamanho);
 				mostrarEstatisticas(comparacoes, trocas, tempoBubble);
 
 				break;
@@ -391,7 +402,7 @@ int main()
 				endMerge = clock();
 				tempoMerge = (float)(endMerge - beginMerge) / CLOCKS_PER_SEC;
 
-				gerarRelatorio(relatorio, "Merge Sort", comparacoes, trocas, tempoMerge);
+				gerarRelatorio(relatorio, "Merge Sort", comparacoes, trocas, tempoMerge, lista, tamanho);
 				mostrarEstatisticas(comparacoes, trocas, tempoMerge);
 				break;
 
@@ -403,7 +414,7 @@ int main()
 				endQuick = clock();
 				tempoQuick = (float)(endQuick - beginQuick) / CLOCKS_PER_SEC;
 
-				gerarRelatorio(relatorio, "Quick Sort", comparacoes, trocas, tempoQuick);
+				gerarRelatorio(relatorio, "Quick Sort", comparacoes, trocas, tempoQuick, lista, tamanho);
 				mostrarEstatisticas(comparacoes, trocas, tempoQuick);
 
 				break;
