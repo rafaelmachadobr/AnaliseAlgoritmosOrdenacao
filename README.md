@@ -11,9 +11,25 @@ Este projeto da APS (Atividades Práticas Supervisionadas) tem como objetivo des
 - Três algoritmos de ordenação para análise: Bubble Sort, Merge Sort e Quick Sort.
 - Exibição de estatísticas de desempenho, incluindo comparações, trocas e tempo de execução.
 
+## Estrutura do Projeto 📁
+
+A estrutura do projeto é organizada da seguinte forma:
+
+- `src/`: Contém o código-fonte do programa.
+- `dados/`: Armazena os conjuntos de dados de teste em arquivos de texto.
+- `relatorios/`: Contém os relatórios de análise de desempenho dos algoritmos de ordenação.
+- `relatoriosAPS/`: Contém os relatórios da APS.
+- `README.md`: Este arquivo.
+
 ## Tecnologia Utilizada 🛠️
 
-- Este projeto foi desenvolvido em C/C++.
+- Este projeto foi desenvolvido em C.
+
+## Pré-requisitos 📋
+
+- Para executar este projeto, você precisará de um compilador C/C++ instalado em seu computador.
+
+- Recomendamos o uso do Dev C++ como ambiente de desenvolvimento para este projeto. Você pode baixar o Dev C++ em https://sourceforge.net/projects/orwelldevcpp/.
 
 ## Configuração e Execução 🚀
 
@@ -37,7 +53,7 @@ cd AnaliseAlgoritmosOrdenacao
 
 2. No menu, clique em "File" (Arquivo) e escolha "Open" (Abrir).
 
-3. Navegue até a pasta do projeto e selecione o arquivo principal, geralmente chamado "main.c" ou "main.cpp".
+3. Navegue até a pasta do projeto e selecione o arquivo principal, chamado `main.c`.
 
 4. Clique em "Open" (Abrir) para carregar o código-fonte.
 
@@ -50,6 +66,19 @@ cd AnaliseAlgoritmosOrdenacao
 3. Siga as instruções do programa para selecionar o tamanho da base de dados, as características desejadas e o algoritmo de ordenação a ser analisado.
 
 4. O programa fornecerá estatísticas de desempenho com base na execução do algoritmo selecionado.
+
+## Contribuição 💡
+
+Este projeto foi desenvolvido por um grupo de estudantes como parte de um trabalho de APS. Agradecemos a todos os membros do grupo por suas contribuições.
+
+- [Rafael Ferreira Machado](https://www.linkedin.com/in/rafaelmachadobr/)
+- [Kayky Vasconcelos](https://www.linkedin.com/in/kayky-vasconcelos-a99b10287/)
+- [Victor Gomes](https://www.linkedin.com/in/victor-gomes23/)
+- [Milene Neto](https://www.linkedin.com/in/milene-neto-276390231/)
+
+## Resultados 📊
+
+Os resultados da análise de desempenho dos algoritmos de ordenação são registrados nos relatórios, que podem ser encontrados na pasta relatorios/. Os relatórios incluem informações sobre o número de comparações, trocas de posição e tempo de execução de cada algoritmo, bem como os dados originais e ordenados.
 
 ## Licença 📜
 
